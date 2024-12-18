@@ -1,0 +1,16 @@
+from flask import *
+import requests
+users = [{'id': 1, 'name': 'Jo'}, {'id': 2, 'name': 'Jane'}]
+app = Flask( __name__ )
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
+@app.route("/users/<user_id>", methods=['GET'])
+def get_user(user_id):
+    if (user_id.isnumeric()):
+        print(users, user_id)
+        result = next((obj for obj in users if obj["id"] == int(user_id)),None)
+        print(result)
+        return jsonify(result), 200
+    else:
+        return jsonify({'error': 'user_id is invalid'}), 400
+if __name__ == " __main__":
+    app.run()
